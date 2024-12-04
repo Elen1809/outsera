@@ -1,0 +1,15 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="WARN">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <logger name="io.appium" level="ERROR" />
+    <logger name="org.openqa.selenium" level="ERROR" />
+    <logger name="com.outsera" level="DEBUG" /> <!-- Apenas logs relevantes do seu código -->
+</configuration>
