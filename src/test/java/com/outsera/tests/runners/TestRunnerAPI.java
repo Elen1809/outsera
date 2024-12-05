@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
         glue = {
                 "com.outsera.tests"
         },
-        tags = "@E2ETarefa1",
+        tags = "@api",
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/cucumber.html",
@@ -17,5 +17,5 @@ import org.junit.runner.RunWith;
         }
 )
 
-public class TestRunner {
+public class TestRunnerAPI {
 }

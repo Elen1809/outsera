@@ -13,10 +13,16 @@ import java.net.MalformedURLException;
 
 public class BaseTest {
 
+    String platform = System.getProperty("platform");
+
     @Before
     public void setUp(Scenario scenario) throws MalformedURLException {
-        String platform = ConfigManager.getRequiredProperty("platform");
+
         String browser = ConfigManager.getRequiredProperty("browser");
+
+        if(platform.equals("")){
+            ConfigManager.getRequiredProperty("platform");
+        }
 
         System.out.println("Inicializando o teste para o cenário: " + scenario.getName());
 
@@ -48,8 +54,6 @@ public class BaseTest {
 
     @After
     public void tearDown() {
-        String platform = ConfigManager.getRequiredProperty("platform");
-
         switch (platform.toLowerCase()) {
             case "web":
                 WebDriver webDriver = WebDriverFactory.getWebDriver();

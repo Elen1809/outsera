@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     echo 'Iniciando testes de API...'
-                    sh 'mvn test -Dcucumber.filter.tags="@api"'
+                    sh 'mvn -Dtest=TestRunnerAPI -Dplatform=api test"'
                     archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
                 }
             }
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     echo 'Iniciando testes E2E...'
-                    sh 'mvn test -Dcucumber.filter.tags="@web"'
+                    sh 'mvn -Dtest=TestRunnerWeb.java -Dplatform=web test"'
                     archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
                 }
             }
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     echo 'Iniciando testes Mobile...'
-                    sh 'mvn test -Dcucumber.filter.tags="@E2EMobile"'
+                    sh 'mvn -Dtest=TestRunnerMobile -Dplatform=android test'
                     archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
                 }
             }
