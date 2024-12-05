@@ -26,41 +26,36 @@ pipeline {
             steps {
                 script {
                     echo 'Iniciando testes de API...'
-                    sh 'mvn -Dtest=TestRunnerAPI -Dplatform=api test"'
+                    sh 'mvn -Dtest=TestRunnerAPI -Dplatform=api test'
                     archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
                 }
             }
         }
 
-        stage('E2E Tests') {
+        stage('Generate Simple Report') {
             steps {
                 script {
-                    echo 'Iniciando testes E2E...'
-                    sh 'mvn -Dtest=TestRunnerWeb.java -Dplatform=web test"'
-                    archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
+                    echo 'Gerando relatório simples...'
+                    sh 'mvn surefire-report:report-only'
+                    archiveArtifacts artifacts: 'target/site/surefire-report.html', allowEmptyArchive: true
                 }
             }
         }
 
-        stage('Mobile Tests') {
+        stage('Publish HTML Report') {
             steps {
                 script {
-                    echo 'Iniciando testes Mobile...'
-                    sh 'mvn -Dtest=TestRunnerMobile -Dplatform=android test'
-                    archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
+                    echo 'Publicando relatório HTML do Surefire...'
+                    publishHTML(target: [
+                        reportDir: 'target/site',
+                        reportFiles: 'surefire-report.html',
+                        reportName: 'Relatório de Teste Surefire',
+                        keepAll: true
+                    ])
                 }
             }
         }
-
-         stage('Generate Simple Report') {
-                    steps {
-                        script {
-                            echo 'Gerando relatório simples...'
-                            sh 'mvn surefire-report:report'
-                            archiveArtifacts artifacts: 'target/site/surefire-report.html', allowEmptyArchive: true
-                        }
-                    }
-                }
+    }
 
     post {
         always {
