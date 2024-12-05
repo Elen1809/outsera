@@ -31,35 +31,12 @@ pipeline {
                 }
             }
         }
-
-        stage('Generate Simple Report') {
-            steps {
-                script {
-                    echo 'Gerando relatório simples...'
-                    sh 'mvn surefire-report:report-only'
-                    archiveArtifacts artifacts: 'target/site/surefire-report.html', allowEmptyArchive: true
-                }
-            }
-        }
-
-        stage('Publish HTML Report') {
-            steps {
-                script {
-                    echo 'Publicando relatório HTML do Surefire...'
-                    publishHTML(target: [
-                        reportDir: 'target/site',
-                        reportFiles: 'surefire-report.html',
-                        reportName: 'Relatório de Teste Surefire',
-                        keepAll: true
-                    ])
-                }
-            }
-        }
     }
 
     post {
         always {
             echo 'Pipeline concluído!'
+            junit '**/target/surefire-reports/*.xml'
         }
         success {
             echo 'Pipeline executado com sucesso!'
