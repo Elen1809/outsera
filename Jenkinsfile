@@ -1,11 +1,24 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven_Última_Versão' // Certifique-se de que o Maven esteja configurado no Jenkins com esse nome
+    }
+
     stages {
         stage('Checkout Code') {
             steps {
                 echo 'Fazendo o checkout do código do repositório...'
                 git branch: 'main', credentialsId: 'git-credentials-id', url: 'https://github.com/Elen1809/outsera.git'
+            }
+        }
+
+        stage('Build and Install Dependencies') {
+            steps {
+                script {
+                    echo 'Instalando dependências...'
+                    sh 'mvn clean install'
+                }
             }
         }
 
