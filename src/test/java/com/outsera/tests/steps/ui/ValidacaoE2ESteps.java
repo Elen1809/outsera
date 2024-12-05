@@ -1,8 +1,10 @@
 package com.outsera.tests.steps.ui;
 
 import com.outsera.core.drivers.WebDriverFactory;
-import com.outsera.domain.ui.commands.AdopeCommands;
-import com.outsera.domain.ui.commands.SauceDemoCommands;
+import com.outsera.domain.ui.commands.CartSauceDemoCommands;
+import com.outsera.domain.ui.commands.CheckoutSauceDemoCommands;
+import com.outsera.domain.ui.commands.LoginAdopeCommands;
+import com.outsera.domain.ui.commands.LoginSauceDemoCommands;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
@@ -12,13 +14,16 @@ import org.junit.Assert;
 
 public class ValidacaoE2ESteps {
     private WebDriver driver;
-    private AdopeCommands adopetCommands;
-    private SauceDemoCommands sauceDemoCommands;
+    private LoginAdopeCommands adopetCommands;
+    private LoginSauceDemoCommands loginSauceDemoCommands;
+    private CartSauceDemoCommands cartSauceDemoCommands;
+    private CheckoutSauceDemoCommands checkoutSauceDemoCommands;
+
 
     @Given("que estou na página de login do AdoPet")
     public void acessarPaginaLogin() {
         driver = WebDriverFactory.getWebDriver();
-        adopetCommands = new AdopeCommands(driver);
+        adopetCommands = new LoginAdopeCommands(driver);
         adopetCommands.acessarPaginaLogin("https://adopet-frontend-cypress.vercel.app/");
     }
 
@@ -45,32 +50,35 @@ public class ValidacaoE2ESteps {
     @Given("que estou na página de login do Sauce Demo")
     public void acessarPaginaLoginSauceDemo() {
         driver = WebDriverFactory.getWebDriver();
-        sauceDemoCommands = new SauceDemoCommands(driver);
-        sauceDemoCommands.acessarPagina();
+        loginSauceDemoCommands = new LoginSauceDemoCommands(driver);
+        cartSauceDemoCommands = new CartSauceDemoCommands(driver);
+        checkoutSauceDemoCommands = new CheckoutSauceDemoCommands(driver);
+
+        loginSauceDemoCommands.acessarPagina();
     }
 
     @When("eu faço login com {string} e {string}")
     public void facoLoginPagina(String user, String password) {
-        sauceDemoCommands.realizarLogin(user, password);
+        loginSauceDemoCommands.realizarLogin(user, password);
     }
 
     @When("eu adiciono um produto")
     public void adicionarProdutoAoCarrinho() {
-        sauceDemoCommands.adicionarProdutoAoCarrinho();
+        cartSauceDemoCommands.adicionarProdutoAoCarrinho();
     }
 
     @And("eu acesso o carrinho")
     public void acessarCarrinho() {
-        sauceDemoCommands.acessarCarrinho();
+        cartSauceDemoCommands.acessarCarrinho();
     }
 
     @And("eu avanço para o checkout preenchendo {string} {string} {string}")
     public void preencherCheckout(String nome, String sobrenome, String codigoPostal) {
-        sauceDemoCommands.preencherCheckout(nome, sobrenome, codigoPostal);
+        checkoutSauceDemoCommands.preencherCheckout(nome, sobrenome, codigoPostal);
     }
 
     @Then("eu devo ver a mensagem de sucesso {string}")
     public void validarMensagemDeSucesso(String mensagemEsperada) {
-        Assert.assertTrue("Mensagem de sucesso incorreta!", sauceDemoCommands.finalizarCompra(mensagemEsperada));
+        Assert.assertTrue("Mensagem de sucesso incorreta!", checkoutSauceDemoCommands.finalizarCompra(mensagemEsperada));
     }
 }

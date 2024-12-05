@@ -19,7 +19,6 @@ public class WebDriverFactory {
             case "chrome":
                 System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 
-                // Configurações adicionais para o ChromeDriver
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--disable-extensions");
                 chromeOptions.addArguments("--disable-infobars");
@@ -37,7 +36,6 @@ public class WebDriverFactory {
             case "firefox":
                 System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
 
-                // Configurações adicionais para o FirefoxDriver
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.setAcceptInsecureCerts(true); // Aceitar certificados inseguros
 

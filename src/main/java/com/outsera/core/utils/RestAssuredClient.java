@@ -1,6 +1,5 @@
 package com.outsera.core.utils;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 import java.util.Map;

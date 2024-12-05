@@ -13,16 +13,12 @@ import java.net.MalformedURLException;
 
 public class BaseTest {
 
-    String platform = System.getProperty("platform");
+    String browser = ConfigManager.getRequiredProperty("browser");
+    String platform = ConfigManager.getRequiredProperty("platform");
+
 
     @Before
     public void setUp(Scenario scenario) throws MalformedURLException {
-
-        String browser = ConfigManager.getRequiredProperty("browser");
-
-        if(platform.equals("")){
-            ConfigManager.getRequiredProperty("platform");
-        }
 
         System.out.println("Inicializando o teste para o cenário: " + scenario.getName());
 

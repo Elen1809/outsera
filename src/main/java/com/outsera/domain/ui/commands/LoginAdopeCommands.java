@@ -1,6 +1,6 @@
 package com.outsera.domain.ui.commands;
 
-import com.outsera.domain.ui.pages.AdoPetPage;
+import com.outsera.domain.ui.pages.LoginAdoPetPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,11 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AdopeCommands {
+public class LoginAdopeCommands {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public AdopeCommands(WebDriver driver) {
+    public LoginAdopeCommands(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
@@ -28,24 +28,24 @@ public class AdopeCommands {
     }
 
     public void inserirEmail(String email) {
-        WebElement emailInput = wait.until(d -> d.findElement(AdoPetPage.EMAIL_INPUT));
+        WebElement emailInput = wait.until(d -> d.findElement(LoginAdoPetPage.EMAIL_INPUT));
         emailInput.clear();
         emailInput.sendKeys(email);
     }
 
     public void inserirSenha(String senha) {
-        WebElement passwordInput = wait.until(d -> d.findElement(AdoPetPage.PASSWORD_INPUT));
+        WebElement passwordInput = wait.until(d -> d.findElement(LoginAdoPetPage.PASSWORD_INPUT));
         passwordInput.clear();
         passwordInput.sendKeys(senha);
     }
 
     public void clicarBotaoLogin() {
-        WebElement loginButton = wait.until(d -> d.findElement(AdoPetPage.SUBMIT_BUTTON));
+        WebElement loginButton = wait.until(d -> d.findElement(LoginAdoPetPage.SUBMIT_BUTTON));
         loginButton.click();
     }
 
     public boolean validarBoasVindas(String textoEsperado) {
-        WebElement boasVindas = wait.until(d -> d.findElement(AdoPetPage.BOAS_VINDAS_TEXT));
+        WebElement boasVindas = wait.until(d -> d.findElement(LoginAdoPetPage.BOAS_VINDAS_TEXT));
         return boasVindas.getText().contains(textoEsperado);
     }
 }

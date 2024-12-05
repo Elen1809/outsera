@@ -1,7 +1,7 @@
 package com.outsera.domain.ui.pages;
 import org.openqa.selenium.By;
 
-public class AdoPetPage {
+public class LoginAdoPetPage {
     public static final By LOGIN_BUTTON = By.cssSelector("[data-test='login-button']");
     public static final By EMAIL_INPUT = By.cssSelector("[data-test='input-loginEmail']");
     public static final By PASSWORD_INPUT = By.cssSelector("[data-test='input-loginPassword']");

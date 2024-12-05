@@ -16,11 +16,9 @@ public class MobileDriverFactory {
             throw new IllegalArgumentException("Somente Android é suportado no momento.");
         }
 
-        // Configura as capacidades
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName", ConfigManager.getRequiredProperty("deviceName"));
-       // capabilities.setCapability("appium:app", ConfigManager.getRequiredProperty("app"));
         capabilities.setCapability("appPackage", "com.swaglabsmobileapp");
         capabilities.setCapability("appActivity", ".MainActivity");
         capabilities.setCapability("appium:automationName", "UiAutomator2");
