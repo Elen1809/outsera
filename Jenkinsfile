@@ -31,6 +31,26 @@ pipeline {
                 }
             }
         }
+
+        stage('E2E Tests') {
+            steps {
+                script {
+                    echo 'Iniciando testes E2E...'
+                    sh 'mvn -Dtest=TestRunnerWeb -Dplatform=web test'
+                    archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
+                }
+            }
+        }
+
+        stage('Mobile Tests') {
+            steps {
+                script {
+                    echo 'Iniciando testes Mobile...'
+                    sh 'mvn -Dtest=TestRunnerMobile -Dplatform=android test'
+                    archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
+                }
+            }
+        }
     }
 
     post {
