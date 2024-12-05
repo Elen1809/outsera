@@ -62,21 +62,6 @@ pipeline {
                     }
                 }
 
-                stage('Publish HTML Report') {
-                    steps {
-                        script {
-                            echo 'Publicando relatório HTML do Surefire...'
-                            publishHTML(target: [
-                                reportDir: 'target/site',
-                                reportFiles: 'surefire-report.html',
-                                reportName: 'Relatório de Teste Surefire',
-                                keepAll: true
-                            ])
-                        }
-                    }
-                }
-            }
-
     post {
         always {
             echo 'Pipeline concluído!'
