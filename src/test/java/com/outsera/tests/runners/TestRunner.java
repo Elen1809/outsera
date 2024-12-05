@@ -7,10 +7,9 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {
-                "com.outsera.tests.steps",
                 "com.outsera.tests"
         },
-        tags = "@E2EMobile",
+        tags = "@E2ETarefa1",
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/cucumber.html",
