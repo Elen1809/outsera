@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven_Última_Versão' // Certifique-se de que o Maven esteja configurado no Jenkins com esse nome
+        maven 'Maven_Última_Versão'
     }
 
     stages {
