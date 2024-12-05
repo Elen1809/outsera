@@ -11,16 +11,7 @@ pipeline {
                 echo 'Fazendo o checkout do código do repositório...'
                 git branch: 'main', credentialsId: 'git-credentials-id', url: 'https://github.com/Elen1809/outsera.git'
             }
-        }
-
-        stage('Build and Install Dependencies') {
-            steps {
-                script {
-                    echo 'Instalando dependências...'
-                    sh 'mvn clean install'
-                }
-            }
-        }
+        }g
 
         stage('API Tests') {
             steps {
