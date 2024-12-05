@@ -4,35 +4,47 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', credentialsId: 'git-credentials-id', url: 'https://github.com/usuario/repo.git'
+                echo 'Fazendo o checkout do código do repositório...'
+                git branch: 'main', credentialsId: 'git-credentials-id', url: 'https://github.com/Elen1809/outsera.git'
             }
         }
 
-        stage('Parallel Tests') {
-            parallel {
-                stage('API Tests') {
-                    steps {
-                        script {
-                            echo 'Iniciando testes de API'
-                            sh './run-api-tests.sh'
-                        }
-                    }
+        stage('API Tests') {
+            steps {
+                script {
+                    echo 'Iniciando testes de API...'
+                    sh 'mvn test -Dcucumber.filter.tags="@api"'
+                    archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
                 }
-                stage('E2E Tests') {
-                    steps {
-                        script {
-                            echo 'Iniciando testes E2E'
-                            sh './run-e2e-tests.sh'
-                        }
-                    }
+            }
+        }
+
+        stage('E2E Tests') {
+            steps {
+                script {
+                    echo 'Iniciando testes E2E...'
+                    sh 'mvn test -Dcucumber.filter.tags="@web"'
+                    archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
                 }
-                stage('Mobile Tests') {
-                    steps {
-                        script {
-                            echo 'Iniciando testes Mobile'
-                            sh './run-mobile-tests.sh'
-                        }
-                    }
+            }
+        }
+
+        stage('Mobile Tests') {
+            steps {
+                script {
+                    echo 'Iniciando testes Mobile...'
+                    sh 'mvn test -Dcucumber.filter.tags="@E2EMobile"'
+                    archiveArtifacts artifacts: 'target/cucumber-reports/*.json', allowEmptyArchive: true
+                }
+            }
+        }
+
+        stage('Generate Report') {
+            steps {
+                script {
+                    echo 'Gerando relatório consolidado...'
+                    sh 'mvn cluecumber-report:reporting'
+                    archiveArtifacts artifacts: 'target/generated-report/**/*', allowEmptyArchive: true
                 }
             }
         }
